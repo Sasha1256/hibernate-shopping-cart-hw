@@ -7,10 +7,12 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @ManyToOne
     private MovieSession movieSession;
-    @OneToOne
+    @ManyToOne
     private User user;
+    @ManyToOne
+    private ShoppingCart shoppingCart;
 
     public Long getId() {
         return id;

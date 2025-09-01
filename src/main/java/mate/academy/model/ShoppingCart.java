@@ -9,7 +9,7 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
     private List<Ticket> tickets;
     @OneToOne
     private User user;

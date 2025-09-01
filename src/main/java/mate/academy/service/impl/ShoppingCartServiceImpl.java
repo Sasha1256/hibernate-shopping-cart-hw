@@ -11,11 +11,17 @@ import mate.academy.model.Ticket;
 import mate.academy.model.User;
 import mate.academy.service.ShoppingCartService;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    private TicketDao ticketDao = new TicketDaoImpl();
-    private ShoppingCartDao shoppingCartDao = new ShoppingCartImpl();
+    private TicketDao ticketDao;
+    private ShoppingCartDao shoppingCartDao;
+
+    public ShoppingCartServiceImpl(TicketDao ticketDao, ShoppingCartDao shoppingCartDao) {
+        this.ticketDao = ticketDao;
+        this.shoppingCartDao = shoppingCartDao;
+    }
 
     @Override
     public void addSession(MovieSession movieSession, User user) throws RegistrationException {
@@ -51,9 +57,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void clear(ShoppingCart shoppingCart) {
-        shoppingCart.setUser(null);
-        shoppingCart.setTickets(null);
-        shoppingCart.setId(null);
-        shoppingCartDao.update(shoppingCart);
+        shoppingCart.setTickets(new ArrayList<>());
     }
 }
