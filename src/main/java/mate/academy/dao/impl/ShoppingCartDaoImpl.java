@@ -42,7 +42,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                     , ShoppingCart.class);
             shoppingCartQuery.setParameter("user", user);
             if (shoppingCartQuery.getResultList().isEmpty()) {
-                throw new HibernateException("ShoppingCart not found");
+                return Optional.empty();
             }
             return Optional.ofNullable(shoppingCartQuery.getSingleResult());
         }
