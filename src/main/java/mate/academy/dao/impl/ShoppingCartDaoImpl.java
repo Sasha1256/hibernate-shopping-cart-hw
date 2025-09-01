@@ -11,7 +11,7 @@ import org.hibernate.query.Query;
 
 import java.util.Optional;
 
-public class ShoppingCartImpl implements ShoppingCartDao {
+public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart add(ShoppingCart shoppingCart) {
         Session session = null;
@@ -41,6 +41,9 @@ public class ShoppingCartImpl implements ShoppingCartDao {
             Query<ShoppingCart> shoppingCartQuery= session.createQuery("from ShoppingCart where user = :user"
                     , ShoppingCart.class);
             shoppingCartQuery.setParameter("user", user);
+            if (shoppingCartQuery.getResultList().isEmpty()) {
+                throw new HibernateException("ShoppingCart not found");
+            }
             return Optional.ofNullable(shoppingCartQuery.getSingleResult());
         }
     }
